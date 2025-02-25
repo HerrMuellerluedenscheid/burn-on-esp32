@@ -88,6 +88,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "atomic_float"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "628d228f918ac3b82fe590352cc719d30664a0c13ca3a60266fe02c7132d480a"
+
+[[package]]
 name = "autocfg"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -189,8 +195,17 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3960b57a6ad4baf54d1dba766965e4559c4b9a8f391107fee5de29db57265840"
 dependencies = [
- "burn-core",
+ "burn-core 0.13.2",
  "burn-train",
+]
+
+[[package]]
+name = "burn"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "55af4c56b540bcf00cf1c7e13b1c60644734906495048afbd4a79aabd0a6efbe"
+dependencies = [
+ "burn-core 0.16.0",
 ]
 
 [[package]]
@@ -199,9 +214,9 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf9479c28bdce3f2b1541f0a9215628f6256b5f3d66871192a3c56d55171d28e"
 dependencies = [
- "burn-common",
- "burn-tensor",
- "derive-new",
+ "burn-common 0.13.2",
+ "burn-tensor 0.13.2",
+ "derive-new 0.6.0",
  "log",
  "spin",
 ]
@@ -212,9 +227,9 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d811c54fa6d9beb38808a1aabd9515c39090720cae572d54f25c041b1702e8fd"
 dependencies = [
- "burn-tensor",
+ "burn-tensor 0.13.2",
  "candle-core",
- "derive-new",
+ "derive-new 0.6.0",
  "half",
 ]
 
@@ -225,7 +240,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d9540b2f45a2d337220e702d7a87572c8e1c78db91a200b22924a8c4a6e9be4"
 dependencies = [
  "async-trait",
- "derive-new",
+ "derive-new 0.6.0",
  "getrandom 0.2.15",
  "rand 0.8.5",
  "serde",
@@ -235,13 +250,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "burn-common"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8a1471949b06002c984df9d753a084a79149841dd7935911d9e432b8478f9fd5"
+dependencies = [
+ "cubecl-common",
+ "getrandom 0.2.15",
+ "serde",
+ "web-time",
+]
+
+[[package]]
 name = "burn-compute"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e890d8999b25a1a090c2afe198243fc79f0a299efb531a4871c084b0ab9fa11"
 dependencies = [
- "burn-common",
- "derive-new",
+ "burn-common 0.13.2",
+ "derive-new 0.6.0",
  "dirs",
  "hashbrown 0.14.5",
  "log",
@@ -261,14 +288,14 @@ dependencies = [
  "bincode",
  "burn-autodiff",
  "burn-candle",
- "burn-common",
+ "burn-common 0.13.2",
  "burn-dataset",
- "burn-derive",
- "burn-ndarray",
+ "burn-derive 0.13.2",
+ "burn-ndarray 0.13.2",
  "burn-tch",
- "burn-tensor",
+ "burn-tensor 0.13.2",
  "burn-wgpu",
- "derive-new",
+ "derive-new 0.6.0",
  "flate2",
  "half",
  "hashbrown 0.14.5",
@@ -284,13 +311,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "burn-core"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9f8ebbf7d5c8bdc269260bd8e7ce08e488e6625da19b3d80ca34a729d78a77ab"
+dependencies = [
+ "ahash",
+ "bincode",
+ "burn-common 0.16.0",
+ "burn-derive 0.16.0",
+ "burn-ndarray 0.16.0",
+ "burn-tensor 0.16.0",
+ "data-encoding",
+ "derive-new 0.7.0",
+ "half",
+ "hashbrown 0.15.2",
+ "num-traits",
+ "portable-atomic-util",
+ "rand 0.8.5",
+ "serde",
+ "serde_json",
+ "spin",
+ "uuid",
+]
+
+[[package]]
 name = "burn-dataset"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3feae7766b56e947d38ac4d6903388270d848609339a147a513145703426f6db"
 dependencies = [
  "csv",
- "derive-new",
+ "derive-new 0.6.0",
  "dirs",
  "gix-tempfile",
  "image",
@@ -315,7 +367,19 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8618ac2c171c7054ffd3ce8da15c3d4b11dc805eb393065c74c05882ef79d931"
 dependencies = [
- "derive-new",
+ "derive-new 0.6.0",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.98",
+]
+
+[[package]]
+name = "burn-derive"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f784ffe0df57848ba232e5f40a1c1f5df3571df59bec99ba32bc7610fd9e811"
+dependencies = [
+ "derive-new 0.7.0",
  "proc-macro2",
  "quote",
  "syn 2.0.98",
@@ -327,9 +391,9 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d77b882d131a67d15f91b915fb3e0a5add73547e7352310d33c877fbe77c79e"
 dependencies = [
- "burn-common",
- "burn-tensor",
- "derive-new",
+ "burn-common 0.13.2",
+ "burn-tensor 0.13.2",
+ "derive-new 0.6.0",
  "hashbrown 0.14.5",
  "log",
  "serde",
@@ -342,10 +406,10 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c4a36a28e4307a830b32b7c51f5351725a95fe953c6223617e5e13a002b0ec5"
 dependencies = [
- "burn",
+ "burn 0.13.2",
  "bytemuck",
  "candle-core",
- "derive-new",
+ "derive-new 0.6.0",
  "half",
  "log",
  "proc-macro2",
@@ -371,12 +435,12 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cb62a93030a690c329b95c01b43e3064a4bd36031e9111d537641d36e42f3ac"
 dependencies = [
- "burn-common",
+ "burn-common 0.13.2",
  "burn-compute",
  "burn-fusion",
- "burn-tensor",
+ "burn-tensor 0.13.2",
  "bytemuck",
- "derive-new",
+ "derive-new 0.6.0",
  "hashbrown 0.14.5",
  "log",
  "num-traits",
@@ -393,15 +457,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05f40bb0b5938937a721045752f1ec1baee8a873429fd17e6e6f2155c6cdf33a"
 dependencies = [
  "burn-autodiff",
- "burn-common",
- "burn-tensor",
- "derive-new",
+ "burn-common 0.13.2",
+ "burn-tensor 0.13.2",
+ "derive-new 0.6.0",
  "libm",
  "matrixmultiply",
- "ndarray",
+ "ndarray 0.15.6",
  "num-traits",
  "rand 0.8.5",
  "rayon",
+ "spin",
+]
+
+[[package]]
+name = "burn-ndarray"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "419fa3eda8cf9fddce0d156946b3d46642c10a41569b23e7855f775f862d310a"
+dependencies = [
+ "atomic_float",
+ "burn-common 0.16.0",
+ "burn-tensor 0.16.0",
+ "derive-new 0.7.0",
+ "libm",
+ "matrixmultiply",
+ "ndarray 0.16.1",
+ "num-traits",
+ "portable-atomic-util",
+ "rand 0.8.5",
  "spin",
 ]
 
@@ -411,7 +494,7 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8cb9c2b547499a3d990e93b950965b9a478edfec4a7bf98d5d4412ff8c897129"
 dependencies = [
- "burn-tensor",
+ "burn-tensor 0.13.2",
  "half",
  "libc",
  "rand 0.8.5",
@@ -424,8 +507,8 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfa19c21f54e1a189be3bbaec45efafdf1c89b2763710b381c9f32ae25e7dbe8"
 dependencies = [
- "burn-common",
- "derive-new",
+ "burn-common 0.13.2",
+ "derive-new 0.6.0",
  "half",
  "hashbrown 0.14.5",
  "num-traits",
@@ -435,14 +518,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "burn-tensor"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "24db20273a636d5340e5a29af142722e0a657491e6b3cfcceb1e62eb862b3b37"
+dependencies = [
+ "burn-common 0.16.0",
+ "bytemuck",
+ "derive-new 0.7.0",
+ "half",
+ "hashbrown 0.15.2",
+ "num-traits",
+ "portable-atomic-util",
+ "rand 0.8.5",
+ "rand_distr",
+ "serde",
+ "serde_bytes",
+]
+
+[[package]]
 name = "burn-train"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0a0014ee82ef967bd82dda378cfaf340f255c39c729e29ac3bc65d3107e4c7ee"
 dependencies = [
- "burn-core",
+ "burn-core 0.13.2",
  "crossterm",
- "derive-new",
+ "derive-new 0.6.0",
  "log",
  "nvml-wrapper",
  "ratatui",
@@ -460,13 +562,13 @@ version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1575890471123109c6aeb725c52ac649fa9e0013e2303f57dc534d5e0cb857e5"
 dependencies = [
- "burn-common",
+ "burn-common 0.13.2",
  "burn-compute",
  "burn-fusion",
  "burn-jit",
- "burn-tensor",
+ "burn-tensor 0.13.2",
  "bytemuck",
- "derive-new",
+ "derive-new 0.6.0",
  "futures-intrusive",
  "hashbrown 0.14.5",
  "log",
@@ -803,6 +905,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "cubecl-common"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "10239ee4800968f367fbc4828250d38acf5d14fa53e8d0370d5f474387591322"
+dependencies = [
+ "derive-new 0.6.0",
+ "embassy-futures",
+ "getrandom 0.2.15",
+ "log",
+ "portable-atomic",
+ "rand 0.8.5",
+ "serde",
+ "spin",
+ "web-time",
+]
+
+[[package]]
 name = "d3d12"
 version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -860,6 +979,12 @@ dependencies = [
  "once_cell",
  "parking_lot_core",
 ]
+
+[[package]]
+name = "data-encoding"
+version = "2.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "575f75dfd25738df5b91b8e43e14d44bda14637a58fae779fd2b064f8bf3e010"
 
 [[package]]
 name = "defmt"
@@ -928,6 +1053,17 @@ name = "derive-new"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d150dea618e920167e5973d70ae6ece4385b7164e0d799fe7c122dd0a5d912ad"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.98",
+]
+
+[[package]]
+name = "derive-new"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2cdc8d50f426189eef89dac62fabfa0abb27d5cc008f25bf4156a0203325becc"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1997,6 +2133,7 @@ dependencies = [
  "allocator-api2",
  "equivalent",
  "foldhash",
+ "serde",
 ]
 
 [[package]]
@@ -2049,8 +2186,7 @@ checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 name = "hello-world-full"
 version = "0.1.0"
 dependencies = [
- "burn",
- "burn-import",
+ "burn 0.16.0",
  "defmt",
  "defmt-rtt",
  "embassy-executor",
@@ -2623,6 +2759,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "ndarray"
+version = "0.16.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "882ed72dce9365842bf196bdeedf5055305f11fc8c03dee7bb0194a6cad34841"
+dependencies = [
+ "matrixmultiply",
+ "num-complex",
+ "num-integer",
+ "num-traits",
+ "portable-atomic",
+ "portable-atomic-util",
+ "rawpointer",
+]
+
+[[package]]
 name = "ndk-sys"
 version = "0.5.0+25.2.9519653"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2883,6 +3034,15 @@ name = "portable-atomic"
 version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "350e9b48cbc6b0e028b0473b114454c6316e57336ee184ceab6e53f72c178b3e"
+
+[[package]]
+name = "portable-atomic-util"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8a2f0d8d040d7848a709caf78912debcc3f33ee4b3cac47d73d1e1069e83507"
+dependencies = [
+ "portable-atomic",
+]
 
 [[package]]
 name = "powerfmt"
@@ -3494,6 +3654,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_bytes"
+version = "0.11.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "387cc504cb06bb40a96c8e04e951fe01854cf6bc921053c954e4a606d9675c6a"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "serde_derive"
 version = "1.0.218"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3630,6 +3799,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6980e8d7511241f8acf4aebddbb1ff938df5eebe98691418c4468d0b72a96a67"
 dependencies = [
  "lock_api",
+ "portable-atomic",
 ]
 
 [[package]]
@@ -3646,7 +3816,7 @@ name = "squeezenet-burn"
 version = "0.1.0"
 source = "git+https://github.com/tracel-ai/models#9a2084dc2b34f4ebf9c7968440e41733000e3aee"
 dependencies = [
- "burn",
+ "burn 0.13.2",
  "burn-import",
  "serde",
 ]
@@ -3823,7 +3993,7 @@ dependencies = [
  "half",
  "lazy_static",
  "libc",
- "ndarray",
+ "ndarray 0.15.6",
  "rand 0.8.5",
  "safetensors 0.3.3",
  "thiserror 1.0.69",
