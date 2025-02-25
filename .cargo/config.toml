@@ -1,0 +1,21 @@
+[target.riscv32imac-unknown-none-elf]
+runner = "probe-rs run --chip=esp32c6fh6"
+
+[env]
+DEFMT_LOG="info"
+
+[build]
+rustflags = [
+  # Required to obtain backtraces (e.g. when using the "esp-backtrace" crate.)
+  # NOTE: May negatively impact performance of produced code
+  "-C", "force-frame-pointers",
+  "-C", "link-arg=-Tlinkall.x",
+
+  # --- ADD following new flag ---
+  "-C", "link-arg=-Tdefmt.x",
+]
+
+target = "riscv32imac-unknown-none-elf"
+
+[unstable]
+build-std = ["alloc", "core"]
