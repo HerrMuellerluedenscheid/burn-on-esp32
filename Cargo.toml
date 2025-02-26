@@ -8,7 +8,7 @@ name = "burn-on-esp32"
 path = "./src/bin/async_main.rs"
 
 [dependencies]
-burn = { version = "0.16.0", default-features = false, features=["ndarray"]}
+burn = { git = "https://github.com/tracel-ai/burn.git", rev = "df7663e3d9529b514236cfc98a85aeec66c28f25", default-features = false, features=["ndarray"]}
 
 defmt = "0.3.10"
 defmt-rtt = "0.4.1"
