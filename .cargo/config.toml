@@ -1,5 +1,5 @@
 [target.riscv32imac-unknown-none-elf]
-runner = "probe-rs run --chip=esp32c6"
+runner = "espflash flash --monitor "
 
 [env]
 DEFMT_LOG="info"
@@ -13,7 +13,7 @@ rustflags = [
   "-C", "link-arg=--nmagic",
 
   # --- ADD following new flag ---
-  "-C", "link-arg=-Tdefmt.x",
+#  "-C", "link-arg=-Tdefmt.x",
 ]
 
 target = "riscv32imac-unknown-none-elf"
