@@ -40,7 +40,7 @@ fn main() -> ! {
     let peripherals = esp_hal::init(config);
 
     let (start, size) = psram::psram_raw_parts(&peripherals.PSRAM);
-    init_psram_heap(start, size);
+    init_psram_heap(start, size * 3);
 
     let string = String::from("A string allocated in PSRAM");
     println!("'{}' allocated at {:p}", &string, string.as_ptr());
