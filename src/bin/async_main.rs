@@ -36,11 +36,17 @@ fn main() -> ! {
     // generator version: 0.2.2
     esp_println::logger::init_logger_from_env();
 
-    let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
+    let config = esp_hal::Config::default()
+        .with_cpu_clock(CpuClock::max())
+        .with_psram({
+            let mut cfg = psram::PsramConfig::default();
+            cfg.size = psram::PsramSize::Size(8 * 1024 * 1024);
+            cfg
+        });
     let peripherals = esp_hal::init(config);
 
     let (start, size) = psram::psram_raw_parts(&peripherals.PSRAM);
-    init_psram_heap(start, size * 3);
+    init_psram_heap(start, size);
 
     let string = String::from("A string allocated in PSRAM");
     println!("'{}' allocated at {:p}", &string, string.as_ptr());
@@ -73,16 +79,16 @@ fn main() -> ! {
 
     // Load model from embedded weights
     let model = Model::<Backend>::from_embedded(&NdArrayDevice::Cpu);
-
-    // Run the model
+    //
+    // // Run the model
     let output = model.forward(normalized_image);
-
-    // Get the argmax of the output
+    //
+    // // Get the argmax of the output
     let arg_max = output.argmax(1).into_scalar() as usize;
-
-    // Get the label from the argmax
+    //
+    // // Get the label from the argmax
     let label = LABELS[arg_max];
-
+    //
     println!("Predicted label: {}", label);
 
     loop {}
