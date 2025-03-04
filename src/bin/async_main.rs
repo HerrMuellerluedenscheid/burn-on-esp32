@@ -1,13 +1,14 @@
 #![no_std]
 #![no_main]
 
-use embassy_executor::Spawner;
-use embassy_time::{Duration, Timer};
-use esp_backtrace as _;
-use esp_hal::clock::CpuClock;
-use log::info;
+use alloc::string::String;
+use alloc::vec::Vec;
 use burn::backend::NdArray;
 use burn::tensor::Tensor;
+use esp_backtrace as _;
+use esp_hal::clock::CpuClock;
+use esp_hal::{main, psram};
+use log::info;
 use squeezenet_burn::model::{label::LABELS, normalizer::Normalizer, squeezenet1::Model};
 
 use esp_backtrace as _;
@@ -20,25 +21,35 @@ use burn::backend::ndarray::NdArrayDevice;
 const HEIGHT: usize = 12;
 const WIDTH: usize = 12;
 
+fn init_psram_heap(start: *mut u8, size: usize) {
+    unsafe {
+        esp_alloc::HEAP.add_region(esp_alloc::HeapRegion::new(
+            start,
+            size,
+            esp_alloc::MemoryCapability::External.into(),
+        ));
+    }
+}
 
-#[esp_hal_embassy::main]
-async fn main(spawner: Spawner) {
+#[main]
+fn main() -> ! {
     // generator version: 0.2.2
+    esp_println::logger::init_logger_from_env();
 
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
-    esp_alloc::heap_allocator!(1*1024);
 
-    esp_println::logger::init_logger_from_env();
+    let (start, size) = psram::psram_raw_parts(&peripherals.PSRAM);
+    init_psram_heap(start, size);
+
+    let string = String::from("A string allocated in PSRAM");
+    println!("'{}' allocated at {:p}", &string, string.as_ptr());
+
+    println!("{}", esp_alloc::HEAP.stats());
+
+    println!("done");
 
     let timer0 = esp_hal::timer::systimer::SystemTimer::new(peripherals.SYSTIMER);
-    esp_hal_embassy::init(timer0.alarm0);
-
-    info!("Embassy initialized!");
-
-    // TODO: Spawn some tasks
-    let _ = spawner;
-
 
     let mut img_array = [[[0.0; WIDTH]; HEIGHT]; 3];
 
@@ -74,10 +85,7 @@ async fn main(spawner: Spawner) {
 
     println!("Predicted label: {}", label);
 
-    loop {
-        info!("Hello world!");
-        Timer::after(Duration::from_secs(1)).await;
-    }
+    loop {}
 
     // for inspiration have a look at the examples at https://github.com/esp-rs/esp-hal/tree/v0.23.1/examples/src/bin
 }

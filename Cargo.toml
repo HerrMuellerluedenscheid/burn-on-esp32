@@ -12,19 +12,15 @@ burn = { version = "0.16.0", default-features = false, features = ["ndarray"] }
 squeezenet-burn = { git = "https://github.com/tracel-ai/models",rev = "0825397d657578b65be14266a7a16d0ef4898ce2", package = "squeezenet-burn", features = ["weights_embedded", "weights_f16"], default-features = false }
 
 critical-section = "1.2.0"
-embassy-executor = { version = "0.7.0", features = ["task-arena-size-20480"] }
-embassy-time = { version = "0.4.0", features = ["generic-queue-8"] }
 esp-backtrace = { version = "0.15.0", features = [
   "esp32s3",
   "exception-handler",
   "panic-handler",
   "println",
 ] }
-esp-hal = { version = "0.23.1", features = ["esp32s3", "unstable"] }
-esp-hal-embassy = { version = "0.6.0", features = ["esp32s3"] }
+esp-hal = {git = "https://github.com/esp-rs/esp-hal.git", rev = "3816de0d87f14e5029c6bbe1f0b81918fa6561be", features = ["esp32s3", "unstable", "psram"] }
 esp-println = { version = "0.13.0", features = ["esp32s3", "log"] }
 log = { version = "0.4.21" }
-static_cell = { version = "2.1.0", features = ["nightly"] }
 esp-alloc = { version = "0.6.0" }
 
 [profile.dev]
